@@ -1,1 +1,1 @@
-[]
+["Assets\\Scripts\\Game_Over\\GameOverManager.cs(3,14): error CS0101: The namespace '<global namespace>' already contains a definition for 'GameOverManager'","Assets\\Scripts\\Game_Over\\GameOverManager.cs(12,10): error CS0111: Type 'GameOverManager' already defines a member called 'Start' with the same parameter types"]

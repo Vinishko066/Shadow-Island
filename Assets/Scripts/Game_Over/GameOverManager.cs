@@ -1,26 +1,35 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
-    [Header("UI & Characters")]
-    public GameObject gameOverPanel;   // Your Game Over panel (child of Canvas)
-    public GameObject survivor;        // Player GameObject
-    public GameObject enemy;          // Enemy GameObject
+    [Header("Tags & Scene")]
+    public string survivorTag = "Survivor";
+    public string enemyTag = "Enemy";
+    public string gameOverSceneName = "Game_Over";  // Must match your scene name in Build Settings
 
     private bool isGameOver = false;
 
-    
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Only trigger once
-        if (isGameOver) return;
+        Debug.Log($"[GameOverManager] OnTriggerEnter2D called. Self tag: {gameObject.tag}, Other tag: {other.tag}");
 
-        // Check if survivor collided with killer
-        if ((other.CompareTag("Enemy") && gameObject.CompareTag("Survivor")) ||
-            (other.CompareTag("Survivor") && gameObject.CompareTag("Enemy")))
+        if (isGameOver)
         {
+            Debug.Log("[GameOverManager] Game over already triggered. Ignoring collision.");
+            return;
+        }
+
+        // Trigger if Survivor and Enemy collide
+        if ((other.CompareTag(enemyTag) && gameObject.CompareTag(survivorTag)) ||
+            (other.CompareTag(survivorTag) && gameObject.CompareTag(enemyTag)))
+        {
+            Debug.Log("[GameOverManager] Survivor and Enemy collided! Triggering Game Over.");
             TriggerGameOver();
+        }
+        else
+        {
+            Debug.Log("[GameOverManager] Collision detected, but tags do not match for Game Over.");
         }
     }
 
@@ -28,15 +37,7 @@ public class GameOverManager : MonoBehaviour
     {
         isGameOver = true;
 
-        // Show Game Over UI
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
-
-        // Hide characters
-        if (survivor != null) survivor.SetActive(false);
-        if (enemy != null) enemy.SetActive(false);
-
-        // Freeze game
-        Time.timeScale = 0f;
+        Debug.Log($"[GameOverManager] Loading Game Over scene: {gameOverSceneName}");
+        SceneManager.LoadScene(gameOverSceneName);
     }
 }

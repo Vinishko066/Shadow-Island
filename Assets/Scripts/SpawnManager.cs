@@ -2,44 +2,41 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [Header("Prefabs")]
-    public GameObject survivorPrefab;
-    public GameObject enemyPrefab;
+    [Header("Existing Characters in Scene")]
+    public GameObject survivor; // assign the existing Survivor object
+    public GameObject enemy;    // assign the existing Enemy object
 
     [Header("Spawn Points (must be 4)")]
     public Transform[] spawnPoints = new Transform[4];
 
-    public GameObject survivor { get; private set; }
-    // Opposite spawn pairs
+    // Opposite spawn pairs: 0->2, 1->3, 2->0, 3->1
     private readonly int[] opposite = new int[] { 2, 3, 0, 1 };
 
     private void Start()
     {
         if (!ValidateSetup()) return;
-        SpawnCharacters();
+        MoveCharactersToSpawn();
     }
-
-    
 
     bool ValidateSetup()
     {
         bool ok = true;
 
-        if (survivorPrefab == null)
+        if (survivor == null)
         {
-            Debug.LogError("[SpawnManager] Survivor prefab not assigned.");
+            Debug.LogError("[SpawnManager] Survivor object not assigned.");
             ok = false;
         }
 
-        if (enemyPrefab == null)
+        if (enemy == null)
         {
-            Debug.LogError("[SpawnManager] Enemy prefab not assigned.");
+            Debug.LogError("[SpawnManager] Enemy object not assigned.");
             ok = false;
         }
 
         if (spawnPoints == null || spawnPoints.Length < 4)
         {
-            Debug.LogError("[SpawnManager] Need 4 spawn points assigned.");
+            Debug.LogError("[SpawnManager] You must assign 4 spawn points.");
             ok = false;
         }
         else
@@ -57,35 +54,27 @@ public class SpawnManager : MonoBehaviour
         return ok;
     }
 
-    void SpawnCharacters()
+    void MoveCharactersToSpawn()
     {
         if (!ValidateSetup()) return;
 
         int enemyIndex = Random.Range(0, 4);
         int survivorIndex = opposite[enemyIndex];
 
-        Vector3 sPos = spawnPoints[survivorIndex].position;
-        Vector3 ePos = spawnPoints[enemyIndex].position;
+        Vector3 survivorPos = spawnPoints[survivorIndex].position;
+        Vector3 enemyPos = spawnPoints[enemyIndex].position;
 
-        GameObject s = Instantiate(survivorPrefab, sPos, Quaternion.identity);
-        s.active = true;
-        survivor = s;
-        GameObject e = Instantiate(enemyPrefab, ePos, Quaternion.identity);
-        e.active = true;
+        // Move the existing objects
+        survivor.transform.position = survivorPos;
+        survivor.SetActive(true); // just in case it was inactive
+        enemy.transform.position = enemyPos;
+        enemy.SetActive(true);
 
-        s.tag = "Survivor";
-        e.tag = "Enemy";
+        // Assign tags if needed
+        survivor.tag = "Survivor";
+        enemy.tag = "Enemy";
 
-        Debug.Log($"[SpawnManager] Spawned Survivor at {sPos} and Enemy at {ePos}");
-    }
-
-    void DestroyExistingCharacters()
-    {
-        foreach (var obj in GameObject.FindGameObjectsWithTag("Survivor"))
-            Destroy(obj);
-
-        foreach (var obj in GameObject.FindGameObjectsWithTag("Enemy"))
-            Destroy(obj);
+        Debug.Log($"[SpawnManager] Survivor moved to {survivorPos}, Enemy moved to {enemyPos}");
     }
 
     private void OnDrawGizmos()
@@ -98,7 +87,9 @@ public class SpawnManager : MonoBehaviour
             if (spawnPoints[i] != null)
             {
                 Gizmos.DrawSphere(spawnPoints[i].position, 0.2f);
+#if UNITY_EDITOR
                 UnityEditor.Handles.Label(spawnPoints[i].position + Vector3.up * 0.3f, $"SP{i}");
+#endif
             }
         }
     }

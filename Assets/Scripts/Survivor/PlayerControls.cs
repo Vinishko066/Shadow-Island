@@ -100,6 +100,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PickUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""221c4ecc-c3e2-4b13-b521-7facf023cd28"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -157,6 +166,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""849634ec-bb79-4300-ad96-ea4840448db7"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -166,6 +186,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
+        m_Gameplay_PickUp = m_Gameplay.FindAction("PickUp", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -247,6 +268,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Move;
+    private readonly InputAction m_Gameplay_PickUp;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -262,6 +284,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/Move".
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/PickUp".
+        /// </summary>
+        public InputAction @PickUp => m_Wrapper.m_Gameplay_PickUp;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -291,6 +317,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @PickUp.started += instance.OnPickUp;
+            @PickUp.performed += instance.OnPickUp;
+            @PickUp.canceled += instance.OnPickUp;
         }
 
         /// <summary>
@@ -305,6 +334,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @PickUp.started -= instance.OnPickUp;
+            @PickUp.performed -= instance.OnPickUp;
+            @PickUp.canceled -= instance.OnPickUp;
         }
 
         /// <summary>
@@ -352,5 +384,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PickUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPickUp(InputAction.CallbackContext context);
     }
 }

@@ -19,4 +19,10 @@ public class PlayBtnScript : MonoBehaviour
     {
         SceneManager.LoadScene("Shadow_Island_S"); 
     }
+    
+     public void QuitGame()
+    {
+        Debug.Log("Quit!");
+        Application.Quit(); // Works only in build
+    }
 }

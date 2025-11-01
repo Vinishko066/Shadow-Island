@@ -2,9 +2,27 @@ using UnityEngine;
 
 public class CameraFollow2D : MonoBehaviour
 {
-    public Transform target;       // Object to follow
+    private Transform target;       // Object to follow
     public float smoothSpeed = 5f; // Camera follow speed
     public Vector3 offset;         // Offset from target, e.g., (0,0,-10)
+    public SpawnManager spawnManager; // assign in inspector
+
+    void Start()
+    {
+        if (target == null)
+        {
+            if (spawnManager != null && spawnManager.survivor != null)
+            {
+                target = spawnManager.survivor.transform;
+            }
+            else
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Survivor");
+                if (player != null) target = player.transform;
+            }
+        }
+    }
+
 
     void LateUpdate()
     {

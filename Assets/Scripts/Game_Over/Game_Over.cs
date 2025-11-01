@@ -18,6 +18,7 @@ public class Game_Over : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             GameOver();
+
         }
     }
 

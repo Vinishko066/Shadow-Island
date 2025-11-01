@@ -18,7 +18,7 @@ public class GameOverBtnScripts : MonoBehaviour
     public void ReplayGame()
     {
         Time.timeScale = 1f; // reset time if paused
-        SceneManager.LoadScene("Shadow_Island_S");
+        SceneManager.LoadScene("Main_Scene");
     }
 
     // Load Main Menu scene

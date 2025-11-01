@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 70c2a40b2c73cf9468926263b61e8bc8
+guid: 016879e205f6dcd4895904c36ddac18e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4673732032563539283
-    second: Game_Over_Screen_0
+      213: 5007466549432132025
+    second: ch3_0
+  - first:
+      213: -8623898806208633658
+    second: ch3_1
+  - first:
+      213: -4728272026236232132
+    second: ch3_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +102,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Game_Over_Screen_0
+      name: ch3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 612
-        height: 408
+        x: 103
+        y: 71
+        width: 54
+        height: 185
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 35d6058658e6cd040800000000000000
-      internalID: 4673732032563539283
+      spriteID: 9b1ad87cb481e7540800000000000000
+      internalID: 5007466549432132025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch3_1
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 71
+        width: 54
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c4e4052ab1c15880800000000000000
+      internalID: -8623898806208633658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch3_2
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 71
+        width: 54
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3ed5c2c4adc16eb0800000000000000
+      internalID: -4728272026236232132
       vertices: []
       indices: 
       edges: []
@@ -148,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Game_Over_Screen_0: 4673732032563539283
+      ch3_0: 5007466549432132025
+      ch3_1: -8623898806208633658
+      ch3_2: -4728272026236232132
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

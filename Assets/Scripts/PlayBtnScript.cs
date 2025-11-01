@@ -17,7 +17,7 @@ public class PlayBtnScript : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Shadow_Island_S"); 
+        SceneManager.LoadScene("Main_Scene"); 
     }
     
      public void QuitGame()

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Survivor
+  - Dock
+  - Log
   layers:
   - Default
   - TransparentFX

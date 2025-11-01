@@ -9,12 +9,7 @@ public class GameOverManager : MonoBehaviour
 
     private bool isGameOver = false;
 
-    void Start()
-    {
-        // Ensure panel is hidden at start
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(false);
-    }
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {

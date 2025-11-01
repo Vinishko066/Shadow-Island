@@ -1,41 +1,50 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class Movement_survivor : MonoBehaviour
+public class SurvivorMovementNewInput : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float moveSpeed = 3f;  // speed of the survivor
+    public float moveSpeed = 3f;
 
     private Vector2 moveInput;
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer sr;
 
-    void Start()
+    private PlayerControls controls;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+
+        controls = new PlayerControls();
+
+        controls.Gameplay.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        controls.Gameplay.Move.canceled += ctx => moveInput = Vector2.zero;
     }
 
-    void Update()
+    private void OnEnable()
     {
-        // Get WASD input
-        moveInput.x = Input.GetAxisRaw("Horizontal"); // A/D or Left/Right
-        moveInput.y = Input.GetAxisRaw("Vertical");   // W/S or Up/Down
+        controls.Gameplay.Enable();
+    }
 
-        moveInput.Normalize(); // prevent faster diagonal movement
+    private void OnDisable()
+    {
+        controls.Gameplay.Disable();
+    }
 
-        // Update animation
-        animator.SetBool("isMoving", moveInput != Vector2.zero);
-
-        // Flip sprite horizontally based on X input
+    private void Update()
+    {
         if (moveInput.x != 0)
             sr.flipX = moveInput.x < 0;
+
+        animator.SetBool("isMoving", moveInput != Vector2.zero);
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        // Move the character
         rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
     }
 }

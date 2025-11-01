@@ -44,7 +44,8 @@ public class LogCollector : MonoBehaviour
             }
             else
             {
-                Debug.Log("[LogCollector] Carrying log but too far from dock.");
+                Debug.Log("[LogCollector] Dropping log at current position.");
+                DropLog();
             }
         }
     }
@@ -98,6 +99,22 @@ public class LogCollector : MonoBehaviour
         logsPlaced++;
 
         Debug.Log("[LogCollector] Log placed at dock. Total logs placed: " + logsPlaced);
+    }
+
+    void DropLog()
+    {
+        carriedLog.transform.SetParent(null);
+        carriedLog.transform.position = transform.position; // Drop where the player is
+        carriedLog.transform.localRotation = Quaternion.identity;
+
+        Rigidbody2D rb = carriedLog.GetComponent<Rigidbody2D>();
+        if (rb != null) rb.isKinematic = false;
+
+        Collider2D col = carriedLog.GetComponent<Collider2D>();
+        if (col != null) col.enabled = true;
+
+        Debug.Log("[LogCollector] Log dropped at current position: " + carriedLog.name);
+        carriedLog = null;
     }
 
     private void OnDrawGizmosSelected()

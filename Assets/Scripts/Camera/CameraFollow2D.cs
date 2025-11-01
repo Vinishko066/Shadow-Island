@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraFollow2D : MonoBehaviour
 {
-    private Transform target;       // Object to follow
+    public Transform target;       // Object to follow
     public float smoothSpeed = 5f; // Camera follow speed
     public Vector3 offset;         // Offset from target, e.g., (0,0,-10)
     public SpawnManager spawnManager; // assign in inspector
